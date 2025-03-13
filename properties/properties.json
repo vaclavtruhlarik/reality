@@ -1,0 +1,5 @@
+[
+    { "city": "New York", "street": "5th Avenue", "houseNumber": "101", "file": "property1" },
+    { "city": "Los Angeles", "street": "Sunset Blvd", "houseNumber": "200", "file": "property2" },
+    { "city": "Chicago", "street": "Michigan Ave", "houseNumber": "55", "file": "property3" }
+]

@@ -1,0 +1,10 @@
+{
+    "city": "Chicago",
+    "street": "Michigan Ave",
+    "houseNumber": "55",
+    "description": "Spacious penthouse with skyline views.",
+    "price": "$1,750,000",
+    "status": "rent",
+    "directory": "property3",
+    "images": ["img1.jpg", "img2.jpg", "img3.jpg"]
+}

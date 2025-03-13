@@ -1,0 +1,10 @@
+{
+    "city": "Los Angeles",
+    "street": "Sunset Blvd",
+    "houseNumber": "200",
+    "description": "Modern villa with a private swimming pool and amazing sunset view.",
+    "price": "$3,200,000",
+    "status": "buy",
+    "directory": "property2",
+    "images": ["img1.jpg", "img2.jpg", "img3.jpg"]
+}

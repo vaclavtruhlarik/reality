@@ -1,0 +1,10 @@
+{
+    "city": "New York",
+    "street": "5th Avenue",
+    "houseNumber": "101",
+    "description": "Luxury apartment with a great view of Central Park.",
+    "price": "$2,500,000",
+    "status": "buy",
+    "directory": "property1",
+    "images": ["img1.webp", "img2.jpg", "img3.jpg"]
+}

@@ -17,11 +17,39 @@
         <a href="employees.html">Zamestnanci</a>
     </nav>
 
-    <div id="content">
-        <h1>Our Properties</h1>
-        <p>List of properties available...</p>
+    <div class="properties-container">
+        <!-- Left Column: Filters & Property List -->
+        <div class="property-list">
+            <h2>🏠 Properties</h2>
+
+            <!-- Filters -->
+            <label for="status-filter">Status:</label>
+            <select id="status-filter">
+                <option value="all">All</option>
+                <option value="sold">Sold</option>
+                <option value="buy">Available to Buy</option>
+                <option value="rent">Available to Rent</option>
+            </select>
+
+            <label for="location-filter">Location:</label>
+            <input type="text" id="location-filter" placeholder="Enter city or address">
+
+            <!-- Property List -->
+            <ul id="property-list"></ul>
+        </div>
+
+        <!-- Right Column: Property Details -->
+        <div class="property-details">
+            <h2 id="property-title">Select a property</h2>
+            <p id="property-description"></p>
+            <p id="property-price"></p>
+            <p id="property-status"></p>
+
+            <!-- Photo Gallery -->
+            <div id="photo-gallery"></div>
+        </div>
     </div>
 
-    <script src="script.js"></script>
+    <script src="properties.js"></script>
 </body>
 </html>
