@@ -1,0 +1,23 @@
+{
+    "Planned Tours": [
+        { "date": "March 14, 2025", "time": "10:00 AM", "location": "Downtown Apartment" },
+        { "date": "March 16, 2025", "time": "2:00 PM", "location": "Suburban House" },
+        { "date": "March 18, 2025", "time": "4:30 PM", "location": "Beachfront Villa" },
+        { "date": "March 20, 2025", "time": "12:00 PM", "location": "Luxury Penthouse" },
+        { "date": "March 22, 2025", "time": "3:00 PM", "location": "Countryside Farmhouse" }
+    ],
+    "Meetings": [
+        { "date": "March 15, 2025", "time": "9:00 AM", "with": "Client A" },
+        { "date": "March 17, 2025", "time": "1:30 PM", "with": "Client B" },
+        { "date": "March 19, 2025", "time": "11:00 AM", "with": "Investor C" },
+        { "date": "March 21, 2025", "time": "2:45 PM", "with": "Developer D" },
+        { "date": "March 23, 2025", "time": "10:30 AM", "with": "Agent E" }
+    ],
+    "Invoicing": [
+        { "date": "March 12, 2025", "amount": "$1,200", "to": "Client X" },
+        { "date": "March 14, 2025", "amount": "$800", "to": "Client Y" },
+        { "date": "March 16, 2025", "amount": "$1,500", "to": "Client Z" },
+        { "date": "March 18, 2025", "amount": "$950", "to": "Client W" },
+        { "date": "March 20, 2025", "amount": "$600", "to": "Client V" }
+    ]
+}

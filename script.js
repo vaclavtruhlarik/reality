@@ -1,101 +1,99 @@
 document.addEventListener("DOMContentLoaded", function () {
     generateCalendar();
-    populateEventLists();
+    fetchEvents(); // Load events from JSON file
 });
 
-// Generate a simple calendar for the current month
-function generateCalendar() {
+// Colors for different event types
+const eventColors = {
+    "Planned Tours": "blue",
+    Meetings: "green",
+    Invoicing: "red",
+};
+
+// Generate a calendar that starts on Monday
+function generateCalendar(events = {}) {
     const today = new Date();
     const month = today.toLocaleString("default", { month: "long" });
     const year = today.getFullYear();
 
     let calendarHTML = `<h3>${month} ${year}</h3><table border="1" style="width:100%; border-collapse: collapse;"><tr>`;
 
-    // Days of the week
-    const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+    // Days of the week starting from Monday
+    const days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
     days.forEach((day) => {
         calendarHTML += `<th>${day}</th>`;
     });
     calendarHTML += `</tr><tr>`;
 
-    // Get the first day of the month
+    // Get first day of the month (0=Sunday, 1=Monday, ..., 6=Saturday)
     let firstDay = new Date(year, today.getMonth(), 1).getDay();
+    if (firstDay === 0) firstDay = 7; // Convert Sunday (0) to last (7)
+
     let lastDate = new Date(year, today.getMonth() + 1, 0).getDate();
 
-    // Fill empty cells for previous month days
-    for (let i = 0; i < firstDay; i++) {
+    // Fill empty cells before first day
+    for (let i = 1; i < firstDay; i++) {
         calendarHTML += `<td></td>`;
     }
 
-    // Fill the calendar with dates
+    // Fill the calendar with dates and event markers
     for (let date = 1; date <= lastDate; date++) {
-        if ((date + firstDay - 1) % 7 === 0) {
-            calendarHTML += `</tr><tr>`; // Start a new row every Sunday
+        if ((firstDay + date - 2) % 7 === 0) {
+            calendarHTML += `</tr><tr>`; // Start a new row every Monday
         }
-        calendarHTML += `<td>${date}</td>`;
-    }
-    calendarHTML += `</tr></table>`;
 
+        // Check if events exist for this date
+        let eventMarkers = getEventMarkers(events, date);
+
+        calendarHTML += `<td><strong>${date}</strong>${eventMarkers}</td>`;
+    }
+
+    calendarHTML += `</tr></table>`;
     document.getElementById("calendar").innerHTML = calendarHTML;
 }
 
-// Example events
-const events = {
-    "Planned Tours": [
-        {
-            date: "March 14, 2025",
-            time: "10:00 AM",
-            location: "Downtown Apartment",
-        },
-        { date: "March 16, 2025", time: "2:00 PM", location: "Suburban House" },
-        {
-            date: "March 18, 2025",
-            time: "4:30 PM",
-            location: "Beachfront Villa",
-        },
-        {
-            date: "March 20, 2025",
-            time: "12:00 PM",
-            location: "Luxury Penthouse",
-        },
-        {
-            date: "March 22, 2025",
-            time: "3:00 PM",
-            location: "Countryside Farmhouse",
-        },
-    ],
-    Meetings: [
-        { date: "March 15, 2025", time: "9:00 AM", with: "Client A" },
-        { date: "March 17, 2025", time: "1:30 PM", with: "Client B" },
-        { date: "March 19, 2025", time: "11:00 AM", with: "Investor C" },
-        { date: "March 21, 2025", time: "2:45 PM", with: "Developer D" },
-        { date: "March 23, 2025", time: "10:30 AM", with: "Agent E" },
-    ],
-    Invoicing: [
-        { date: "March 12, 2025", amount: "$1,200", to: "Client X" },
-        { date: "March 14, 2025", amount: "$800", to: "Client Y" },
-        { date: "March 16, 2025", amount: "$1,500", to: "Client Z" },
-        { date: "March 18, 2025", amount: "$950", to: "Client W" },
-        { date: "March 20, 2025", amount: "$600", to: "Client V" },
-    ],
-};
+// Fetch event data and update calendar
+function fetchEvents() {
+    fetch("events.json")
+        .then((response) => response.json())
+        .then((data) => {
+            generateCalendar(data);
+            populateList(
+                "planned-tours",
+                data["Planned Tours"].map(
+                    (e) => `${e.date} - ${e.time} at ${e.location}`
+                )
+            );
+            populateList(
+                "meetings",
+                data["Meetings"].map(
+                    (e) => `${e.date} - ${e.time} with ${e.with}`
+                )
+            );
+            populateList(
+                "invoicing",
+                data["Invoicing"].map(
+                    (e) => `${e.date} - ${e.amount} to ${e.to}`
+                )
+            );
+        })
+        .catch((error) => console.error("Error loading events:", error));
+}
 
-// Populate the event lists dynamically
-function populateEventLists() {
-    populateList(
-        "planned-tours",
-        events["Planned Tours"].map(
-            (e) => `${e.date} - ${e.time} at ${e.location}`
-        )
-    );
-    populateList(
-        "meetings",
-        events["Meetings"].map((e) => `${e.date} - ${e.time} with ${e.with}`)
-    );
-    populateList(
-        "invoicing",
-        events["Invoicing"].map((e) => `${e.date} - ${e.amount} to ${e.to}`)
-    );
+// Generate event markers for the calendar
+function getEventMarkers(events, date) {
+    let markers = "";
+
+    Object.keys(events).forEach((type) => {
+        events[type].forEach((event) => {
+            let eventDate = parseInt(event.date.split(" ")[1]); // Extract day from "March 14, 2025"
+            if (eventDate === date) {
+                markers += `<div class="event-dot" style="background:${eventColors[type]};"></div>`;
+            }
+        });
+    });
+
+    return markers;
 }
 
 // Helper function to populate event lists
